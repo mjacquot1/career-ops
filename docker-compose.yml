@@ -6,6 +6,7 @@ services:
     image: career-ops:local
     container_name: career-ops
     working_dir: /app
+    user: "1000:1000"
     # Long-running shell so `docker compose exec` is instant.
     command: ["tail", "-f", "/dev/null"]
     init: true
@@ -15,10 +16,12 @@ services:
     volumes:
       - .:/app
       - career-ops-node-modules:/app/node_modules
+      - career-ops-claude-config:/home/node/.claude
     environment:
       - NODE_ENV=development
       - PLAYWRIGHT_BROWSERS_PATH=/ms-playwright
       # Forward common API keys if set on host. Empty values are ignored.
+      - CLAUDE_CODE_OAUTH_TOKEN=${CLAUDE_CODE_OAUTH_TOKEN:-}
       - GEMINI_API_KEY=${GEMINI_API_KEY:-}
       - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY:-}
       - OPENAI_API_KEY=${OPENAI_API_KEY:-}
@@ -31,3 +34,4 @@ services:
 
 volumes:
   career-ops-node-modules:
+  career-ops-claude-config:

@@ -9,6 +9,8 @@
 #   ./cops node generate-pdf.mjs cv.html output/cv.pdf
 #   ./cops shell                     # interactive bash
 #   ./cops up | down | rebuild | logs
+#   ./cops claude                 # interactive Claude Code
+#   ./cops claude -p "evaluate …”
 #
 # Anything not matching a known subcommand is forwarded to npm run <subcommand>
 # when package.json defines it, otherwise executed verbatim inside the container.
@@ -51,6 +53,10 @@ case "${1:-}" in
   shell|bash)
     ensure_up
     exec docker compose exec -it "$SERVICE" bash
+    ;;
+  claude)
+    ensure_up
+    exec docker compose exec -it "$SERVICE" "$@"
     ;;
   node|npm|npx|go|bash|sh)
     ensure_up

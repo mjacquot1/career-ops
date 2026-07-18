@@ -9,7 +9,7 @@ ENV DEBIAN_FRONTEND=noninteractive \
     NODE_ENV=development \
     PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=0 \
     PLAYWRIGHT_BROWSERS_PATH=/ms-playwright \
-    PATH=/usr/local/go/bin:$PATH
+    PATH=/home/node/.local/bin:/usr/local/go/bin:$PATH
 
 # Optional: Go toolchain for the dashboard TUI (./dashboard).
 # Small footprint, keeps full feature parity with the README setup.
@@ -29,13 +29,41 @@ RUN set -eux; \
     apt-get clean; \
     rm -rf /var/lib/apt/lists/*
 
+# Non-root user at uid 1000. Playwright images often ship `pwuser`, not `node`.
+RUN set -eux; \
+    if ! id -u node >/dev/null 2>&1; then \
+      if id -u pwuser >/dev/null 2>&1; then \
+        usermod -l node pwuser; \
+        groupmod -n node pwuser; \
+        usermod -d /home/node -m node; \
+      elif ! getent passwd 1000 >/dev/null; then \
+        groupadd -g 1000 node; \
+        useradd -m -u 1000 -g node -s /bin/bash node; \
+      else \
+        existing="$(getent passwd 1000 | cut -d: -f1)"; \
+        usermod -l node "$existing"; \
+        groupmod -n node "$(getent group 1000 | cut -d: -f1)"; \
+        usermod -d /home/node -m node; \
+      fi; \
+    fi; \
+    mkdir -p /home/node/.claude /home/node/.local /app; \
+    chown -R node:node /home/node /app
+
+# Ensure Chromium under /ms-playwright is readable by node
+RUN chmod -R a+rX /ms-playwright || true
+
+USER node
 WORKDIR /app
 
-# Prime npm deps in a layer so rebuilds stay fast.
-# Pin playwright to the version that matches the base image's bundled chromium.
-COPY package.json package-lock.json* ./
-RUN npm install --no-audit --no-fund \
- && npm install --no-audit --no-fund --save-exact playwright@1.58.1
+# Install Claude as the same user that will run batch / interactive sessions
+RUN curl -fsSL https://claude.ai/install.sh | bash
+
+# Drop back only if something must run as root later — usually stay as node
+USER node
+
+# Browsers ship in the Playwright base image; skip postinstall's rootful --with-deps.
+COPY --chown=node:node package.json package-lock.json* ./
+RUN npm install --no-audit --no-fund --ignore-scripts
 
 # The rest of the project is bind-mounted at runtime via docker compose,
 # so we don't COPY sources here — keeps the image generic and lets local
