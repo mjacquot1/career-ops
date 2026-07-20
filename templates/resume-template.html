@@ -136,22 +136,6 @@
     color: #ccc;
   }
 
-  /* === OPTIONAL PROFILE PHOTO (opt-in, DACH/European markets — #264) ===
-     Off by default: with no candidate.photo the {{PHOTO}} slot is empty, no
-     <img> is emitted, and the layout is byte-identical to a photoless CV.
-     When opted in (candidate.photo in config/profile.yml) the photo floats into
-     the top corner and the header/summary text wraps beside it. Photos are
-     penalized by US/UK/many-market ATS, so this is never on by default. */
-  .cv-photo {
-    float: right;
-    width: 80px;
-    height: 100px;
-    object-fit: cover;
-    margin: 0 0 8px 14px;
-    border-radius: 3px;
-    border: 1px solid #e2e2e2;
-  }
-
   /* === SECTIONS === */
   .section {
     margin-bottom: 18px;
@@ -180,24 +164,6 @@
   /* Links must never break across lines */
   a {
     white-space: nowrap;
-  }
-
-  /* === CORE COMPETENCIES === */
-  .competencies-grid {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-  }
-
-  .competency-tag {
-    font-family: 'DM Sans', sans-serif;
-    font-size: 10px;
-    font-weight: 500;
-    color: hsl(187, 74%, 28%);
-    background: hsl(187, 40%, 95%);
-    padding: 4px 10px;
-    border-radius: 3px;
-    border: 1px solid hsl(187, 40%, 88%);
   }
 
   /* === WORK EXPERIENCE === */
@@ -375,7 +341,6 @@
   html[lang="ar"] .section-title,
   html[lang="ar"] .job-company,
   html[lang="ar"] .project-title,
-  html[lang="ar"] .competency-tag,
   html[lang="ar"] .skill-category {
     font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
   }
@@ -402,11 +367,6 @@
     direction: rtl;
   }
 
-  html[lang="ar"] .cv-photo {
-    float: left;
-    margin: 0 14px 8px 0;
-  }
-
   /* === CJK (Japanese) font fallback === */
   /* The bundled webfonts are Latin-only (see #951). Without a CJK fallback,
      Japanese text renders as tofu (□) in headless Chromium on any system
@@ -424,7 +384,6 @@
   html[lang="ja"] .section-title,
   html[lang="ja"] .job-company,
   html[lang="ja"] .project-title,
-  html[lang="ja"] .competency-tag,
   html[lang="ja"] .skill-category {
     font-family: 'Space Grotesk', 'Hiragino Sans', 'Hiragino Kaku Gothic ProN',
       'Yu Gothic', 'YuGothic', 'Noto Sans CJK JP', 'Noto Sans JP',
@@ -435,7 +394,6 @@
 <body>
 <div class="page">
 
-  {{PHOTO}}
   <!-- HEADER -->
   <div class="header avoid-break">
     <h1>{{NAME}}</h1>
@@ -459,14 +417,12 @@
     <div class="summary-text">{{SUMMARY_TEXT}}</div>
   </div>
 
-  <!-- CORE COMPETENCIES -->
-  <div class="section">
-    <div class="section-title">{{SECTION_COMPETENCIES}}</div>
-    <div class="competencies-grid">
-      {{COMPETENCIES}}
-    </div>
+  <!-- SKILLS -->
+  <div class="section avoid-break">
+    <div class="section-title">{{SECTION_SKILLS}}</div>
+    {{SKILLS}}
   </div>
-
+  
   <!-- WORK EXPERIENCE -->
   <div class="section">
     <div class="section-title">{{SECTION_EXPERIENCE}}</div>
@@ -483,12 +439,6 @@
   <div class="section avoid-break">
     <div class="section-title">{{SECTION_EDUCATION}}</div>
     {{EDUCATION}}
-  </div>
-
-  <!-- SKILLS -->
-  <div class="section avoid-break">
-    <div class="section-title">{{SECTION_SKILLS}}</div>
-    {{SKILLS}}
   </div>
 
 </div>

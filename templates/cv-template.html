@@ -95,22 +95,6 @@
     color: #ccc;
   }
 
-  /* === OPTIONAL PROFILE PHOTO (opt-in, DACH/European markets — #264) ===
-     Off by default: with no candidate.photo the {{PHOTO}} slot is empty, no
-     <img> is emitted, and the layout is byte-identical to a photoless CV.
-     When opted in (candidate.photo in config/profile.yml) the photo floats into
-     the top corner and the header/summary text wraps beside it. Photos are
-     penalized by US/UK/many-market ATS, so this is never on by default. */
-  .cv-photo {
-    float: right;
-    width: 80px;
-    height: 100px;
-    object-fit: cover;
-    margin: 0 0 8px 14px;
-    border-radius: 3px;
-    border: 1px solid #e2e2e2;
-  }
-
   /* === SECTIONS === */
   .section {
     margin-bottom: 18px;
@@ -146,12 +130,12 @@
     white-space: nowrap;
   }
 
-  /* === CORE COMPETENCIES === */
+  /* === CORE COMPETENCIES ===
   .competencies-grid {
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
-  }
+  } */
 
   .competency-tag {
     font-family: 'Liberation Sans', 'Helvetica Neue', Arial, 'DejaVu Sans', sans-serif;
@@ -424,11 +408,6 @@
     direction: rtl;
   }
 
-  html[lang="ar"] .cv-photo {
-    float: left;
-    margin: 0 14px 8px 0;
-  }
-
   /* === CJK (Japanese) font fallback === */
   /* The bundled webfonts are Latin-only (see #951). Without a CJK fallback,
      Japanese text renders as tofu (□) in headless Chromium on any system
@@ -456,8 +435,6 @@
 </head>
 <body>
 <div class="page">
-
-  {{PHOTO}}
   <!-- HEADER -->
   <div class="header">
     <h1>{{NAME}}</h1>
@@ -481,13 +458,19 @@
     <div class="summary-text">{{SUMMARY_TEXT}}</div>
   </div>
 
-  <!-- CORE COMPETENCIES -->
+  <!-- SKILLS -->
+  <div class="section">
+    <div class="section-title">{{SECTION_SKILLS}}</div>
+    {{SKILLS}}
+  </div>
+
+  <!-- CORE COMPETENCIES
   <div class="section">
     <div class="section-title">{{SECTION_COMPETENCIES}}</div>
     <div class="competencies-grid">
       {{COMPETENCIES}}
     </div>
-  </div>
+  </div> -->
 
   <!-- WORK EXPERIENCE -->
   <div class="section">
@@ -511,12 +494,6 @@
   <div class="section">
     <div class="section-title">{{SECTION_CERTIFICATIONS}}</div>
     <div class="cert-table">{{CERTIFICATIONS}}</div>
-  </div>
-
-  <!-- SKILLS -->
-  <div class="section">
-    <div class="section-title">{{SECTION_SKILLS}}</div>
-    {{SKILLS}}
   </div>
 
 </div>
