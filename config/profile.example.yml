@@ -40,26 +40,26 @@ target_roles:
 
 narrative:
   # Your professional headline (1 line)
-  headline: "ML Engineer turned AI product builder"
+  headline: "Platform and full-stack engineer with Meta-scale integrity & ML pipeline experience"
   # Your exit story — what makes you unique
-  exit_story: "Built and sold my SaaS after 5 years. Now focused on applied AI at scale."
+  exit_story: "Ex-Meta Integrity Infrastructure engineer who enforced content policy across trillions of Hive rows. Now building full-stack, secure applications at WeVote — equally at home in ML data pipelines and product code."
   # Your top 3-5 superpowers
   superpowers:
-    - "End-to-end ML pipelines"
-    - "Fast prototyping (idea to prod in 2 weeks)"
-    - "Cross-functional communication"
+    - "Large-scale data pipelines (trillions of Hive rows via Presto/Dataswarm)"
+    - "End-to-end full-stack delivery (Django, React, Rails, AWS)"
+    - "Workflow automation that removes human toil (saved 420+ annual hours at Meta, 10+ hrs/week at Drizly)"
+    - "Secure engineering (OWASP Top 10, token auth, GraphQL authorization)"
   # Proof points — projects, articles, case studies with measurable impact
   proof_points:
-    - name: "Project Alpha"
-      url: "https://janesmith.dev/project-alpha"
-      hero_metric: "Reduced inference latency 40%"
-    - name: "Open Source Tool"
-      url: "https://github.com/janesmith/tool"
-      hero_metric: "2K+ GitHub stars"
-  # Optional: dashboard/demo URL with credentials
-  # dashboard:
-  #   url: "https://janesmith.dev/demo"
-  #   password: "demo-2026"
+    - name: "Meta Integrity — Hashtag Enforcement"
+      url: "https://www.linkedin.com/in/marcel-jacquot-9b470975/"
+      hero_metric: "Removed 126K+ hashtags & 600K+ violating posts at 98.5%+ accuracy"
+    - name: "Search Simulation API (LLM query expansion)"
+      url: "https://www.linkedin.com/in/marcel-jacquot-9b470975/"
+      hero_metric: "100K daily queries, tens of millions of results"
+    - name: "Research: Social Media & Investor Returns (Reddit)"
+      url: "https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3282828"
+      hero_metric: "Scraped & analyzed 200M+ Reddit posts; SSRN-published"
 
 compensation:
   target_range: "$150K-200K"     # Your target total comp
@@ -149,21 +149,7 @@ cover_letter:
 
   # Your current professional domain (used to detect domain gaps vs the JD).
   # Plain English, e.g. "digital media", "fintech", "healthcare IT".
-  primary_domain: "your current domain"
-
-  # Languages you are actively learning. Each entry MAY produce a closing
-  # sentence in that language IF the JD location matches one of the listed
-  # countries AND the user confirms inclusion during the cover letter flow.
-  # Remove the block entirely if not applicable.
-  language_learning:
-    - language: Spanish
-      current_level: B1
-      target_level: B2
-      target_date: "end of 2026"
-      # The sentence to include, written in that language. Keep it one line.
-      sentence: "Estoy aprendiendo español y espero alcanzar el nivel B2 a finales de 2026."
-      # Only trigger this entry when the JD location is in one of these countries.
-      countries: [Spain, Mexico, Argentina, Colombia, Chile]
+  primary_domain: "Software Engineering"
 
 # ── Contact Preferences ──────────────────────────────────────────────────────
 #
